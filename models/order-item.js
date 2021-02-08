@@ -11,3 +11,5 @@ const OrderItem = sequelize.define("orderItem", {
   },
   quantity: Sequelize.INTEGER,
 });
+
+module.exports = OrderItem;
