@@ -1,3 +1,6 @@
+# security
+**/util/database.js
+
 # Logs
 logs
 *.log
@@ -115,5 +118,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# security
-util/*.js
