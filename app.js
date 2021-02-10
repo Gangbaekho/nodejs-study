@@ -4,14 +4,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const errorController = require("./controllers/error");
-const mongoConnect = require("./util/database.s");
+const mongoConnect = require("./util/database.s").mongoConnect;
 
 const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-// const adminRoutes = require("./routes/admin");
+const adminRoutes = require("./routes/admin");
 // const shopRoutes = require("./routes/shop");
 const { MongoClient } = require("mongodb");
 
@@ -20,12 +20,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {});
 
-// app.use("/admin", adminRoutes);
+app.use("/admin", adminRoutes);
 // app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect((client) => {
-  console.log(client);
+mongoConnect(() => {
   app.listen(3000);
 });
