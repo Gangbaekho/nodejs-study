@@ -15,11 +15,20 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const { MongoClient } = require("mongodb");
 
+const User = require("./models/user");
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  next();
+  User.findById("602376c0be72540b09f735b5")
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 app.use("/admin", adminRoutes);
