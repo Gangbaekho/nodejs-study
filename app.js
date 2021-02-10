@@ -5,14 +5,6 @@ const bodyParser = require("body-parser");
 
 const errorController = require("./controllers/error");
 
-const sequelize = require("./util/database");
-const Product = require("./models/product");
-const User = require("./models/user");
-const Cart = require("./models/cart");
-const CartItem = require("./models/cart-item");
-const Order = require("./models/order");
-const OrderItem = require("./models/order-item");
-
 const app = express();
 
 app.set("view engine", "ejs");
@@ -24,14 +16,7 @@ const shopRoutes = require("./routes/shop");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use((req, res, next) => {
-  User.findByPk(1)
-    .then((user) => {
-      req.user = user;
-      next();
-    })
-    .catch((error) => console.log(error));
-});
+app.use((req, res, next) => {});
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
