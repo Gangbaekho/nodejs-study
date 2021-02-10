@@ -3,24 +3,41 @@ const ObjectId = mongodb.ObjectId;
 const getDb = require("../util/database.s").getDb;
 
 class Product {
-  constructor(title, price, description, imageUrl) {
+  constructor(title, price, description, imageUrl, id) {
     this.title = title;
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
+    this.id = id;
   }
 
   save() {
     const db = getDb();
-    return db
-      .collection("products")
-      .insertOne(this)
+    let dbOp;
+    if (this.id) {
+      // Update the product
+      dbOp = db
+        .collection("products")
+        .updateOne({ _id: ObjectId(this.id) }, { $set: this });
+    } else {
+      dbOp = db.collection("products").insertOne(this);
+    }
+    return dbOp
       .then((result) => {
         console.log(result);
       })
       .catch((error) => {
         console.log(error);
       });
+    // return db
+    //   .collection("products")
+    //   .insertOne(this)
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
 
   static fetchAll() {
