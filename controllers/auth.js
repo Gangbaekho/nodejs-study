@@ -55,7 +55,7 @@ exports.postSignup = (req, res, next) => {
       if (userDoc) {
         return res.redirect("/signup");
       }
-      bcrypt
+      return bcrypt
         .hash(password, 12)
         .then((hashedPassword) => {
           const user = new User({
@@ -65,12 +65,9 @@ exports.postSignup = (req, res, next) => {
           });
           return user.save();
         })
-        .catch((error) => {
-          console.log(error);
+        .then((result) => {
+          res.redirect("/login");
         });
-    })
-    .then((result) => {
-      res.redirect("/login");
     })
     .catch((error) => {
       console.log(error);
