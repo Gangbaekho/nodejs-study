@@ -126,7 +126,7 @@ exports.postSignup = (req, res, next) => {
         password: password,
         confirmPassword: confirmPassword,
       },
-      validationErrors: error.array(),
+      validationErrors: errors.array(),
     });
   }
 
