@@ -1,6 +1,10 @@
 # security
 *.s.js
 
+#images
+*.s.jpeg
+*.s.png
+
 # Logs
 logs
 *.log
