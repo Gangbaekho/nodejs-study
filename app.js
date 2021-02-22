@@ -25,7 +25,7 @@ const fileStorage = multer.diskStorage({
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString + "-" + file.originalname);
+    cb(null, Date.now() + file.originalname + ".s.jpeg");
   },
 });
 
@@ -101,6 +101,8 @@ app.use(errorController.get404);
 
 app.use((error, req, res, next) => {
   // res.status(error.httpStatusCode).render(...)
+  console.log("error catched in error handling request");
+  console.log(req.session);
   res.status(500).render("500", {
     pageTitle: "Error!",
     path: "/500",
